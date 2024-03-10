@@ -48,6 +48,15 @@ class TestBaseModel(unittest.TestCase):
         }
         self.assertEqual(base_model_dict, expected_dict)
 
+    def test_to_dict_from_dict(self):
+        base_model = BaseModel()
+        base_model_dict = base_model.to_dict()
+        new_base_model = BaseModel(**base_model_dict)
+        self.assertEqual(base_model.id, new_base_model.id)
+        self.assertEqual(base_model.created_at, new_base_model.created_at)
+        self.assertEqual(base_model.updated_at, new_base_model.updated_at)
+        self.assertEqual(str(base_model), str(new_base_model))
+
 
 if __name__ == "__main__":
     unittest.main()

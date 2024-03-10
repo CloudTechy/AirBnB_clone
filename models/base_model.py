@@ -8,11 +8,26 @@ from datetime import datetime
 class BaseModel:
     """ This creatses a representation of a BaseModel class"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """ initializes the BaseModel class """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            if "id" not in kwargs:
+                kwargs["id"] = str(uuid.uuid4())
+            if "created_at" in kwargs:
+                kwargs["created_at"] = datetime.strptime(
+                        kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f"
+                        )
+            if "updated_at" in kwargs:
+                kwargs["updated_at"] = datetime.strptime(
+                        kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f"
+                        )
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """ Returns the string representation of BaseModel """
