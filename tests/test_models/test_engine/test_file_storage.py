@@ -14,9 +14,11 @@ class TestFileStorage(unittest.TestCase):
     def setUpClass(cls):
         """ Run once before all tests """
         cls.file_path = "test_file.json"
+        bm1 = BaseModel()
+        bm2 = BaseModel()
         cls.test_objects = {
-                "TestClass1.1": {"id": "1", "name": "Test Object 1"},
-                "TestClass2.2": {"id": "2", "name": "Test Object 2"}
+                f"BaseModel.{bm1.id}": bm1.to_dict(),
+                f"BaseModel.{bm2.id}": bm2.to_dict()
                 }
         # Create a temporary test file with some data
         with open(cls.file_path, 'w') as f:
@@ -66,16 +68,16 @@ class TestFileStorage(unittest.TestCase):
         objects = self.file_storage.all()
         self.assertIn(f"BaseModel.{new_obj.id}", objects)
 
-        # # Save objects to file
-        # self.file_storage.save()
+        # Save objects to file
+        self.file_storage.save()
 
-        # # Reload objects from file
-        # self.file_storage.reload()
-        # objects_after_save = self.file_storage.all()
+        # Reload objects from file
+        self.file_storage.reload()
+        objects_after_save = self.file_storage.all()
 
-        # # Check if object is still present after saving and reloading
-        # self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
-        # self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
+        # Check if object is still present after saving and reloading
+        self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
+        self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
 
     def test_reload(self):
         """ Test the reload() method """
