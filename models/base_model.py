@@ -12,7 +12,8 @@ class BaseModel:
         """ initializes the BaseModel class """
         if kwargs:
             if "id" not in kwargs:
-                kwargs["id"] = str(uuid.uuid4())
+                # kwargs["id"] = str(uuid.uuid4())
+                pass
             if "created_at" in kwargs:
                 kwargs["created_at"] = datetime.strptime(
                         kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f"
