@@ -60,11 +60,12 @@ class TestFileStorage(unittest.TestCase):
         """ Test the new() and save() methods """
         # Create a new object
         new_obj = BaseModel()
-        self.file_storage.new(new_obj.to_dict())
+        self.file_storage.new(new_obj)
+        print(new_obj.to_dict())
 
         # Check if object is added
         objects = self.file_storage.all()
-        self.assertIn("TestClass3.3", objects)
+        self.assertIn(f"BaseModel.{new_obj.id}", objects)
 
         # Save objects to file
         self.file_storage.save()
