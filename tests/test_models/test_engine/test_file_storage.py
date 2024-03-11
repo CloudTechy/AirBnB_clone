@@ -17,8 +17,8 @@ class TestFileStorage(unittest.TestCase):
         bm1 = BaseModel()
         bm2 = BaseModel()
         cls.test_objects = {
-                f"BaseModel.{bm1.id}": bm1,
-                f"BaseModel.{bm2.id}": bm2
+                f"BaseModel.{bm1.id}": bm1.to_dict(),
+                f"BaseModel.{bm2.id}": bm2.to_dict()
                 }
         # Create a temporary test file with some data
         with open(cls.file_path, 'w') as f:
@@ -46,17 +46,20 @@ class TestFileStorage(unittest.TestCase):
         # Reload should overwrite existing objects with test data
         self.file_storage.reload()
         objects = self.file_storage.all()
+        print(objects, "; len: ",len(objects))
 
         # Check if the number of objects matches the expected test objects
         self.assertEqual(len(objects), len(self.test_objects))
 
         # Check if each key in test_objects is present in objects
         for key in self.test_objects:
+            print()
+            print(key)
             self.assertIn(key, objects)
 
         # Check if the values of each key match the expected test data
         for key, value in self.test_objects.items():
-            self.assertEqual(objects[key], value)
+            self.assertDictEqual(objects[key], value)
 
     # def test_new_and_save(self):
     #     """ Test the new() and save() methods """
