@@ -17,8 +17,8 @@ class TestFileStorage(unittest.TestCase):
         bm1 = BaseModel()
         bm2 = BaseModel()
         cls.test_objects = {
-                f"BaseModel.{bm1.id}": bm1.to_dict(),
-                f"BaseModel.{bm2.id}": bm2.to_dict()
+                f"BaseModel.{bm1.id}": bm1,
+                f"BaseModel.{bm2.id}": bm2
                 }
         # Create a temporary test file with some data
         with open(cls.file_path, 'w') as f:
@@ -46,8 +46,6 @@ class TestFileStorage(unittest.TestCase):
         # Reload should overwrite existing objects with test data
         self.file_storage.reload()
         objects = self.file_storage.all()
-
-        print(objects)
 
         # Check if the number of objects matches the expected test objects
         self.assertEqual(len(objects), len(self.test_objects))
