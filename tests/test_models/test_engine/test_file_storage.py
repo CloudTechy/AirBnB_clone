@@ -47,6 +47,8 @@ class TestFileStorage(unittest.TestCase):
         self.file_storage.reload()
         objects = self.file_storage.all()
         print(objects, "; len: ",len(objects))
+        print()
+        print("self: ", self.test_objects, "len: ",len(self.test_objects) )
 
         # Check if the number of objects matches the expected test objects
         self.assertEqual(len(objects), len(self.test_objects))
@@ -54,7 +56,7 @@ class TestFileStorage(unittest.TestCase):
         # Check if each key in test_objects is present in objects
         for key in self.test_objects:
             print()
-            print(key)
+            print(key, 'here')
             self.assertIn(key, objects)
 
         # Check if the values of each key match the expected test data
