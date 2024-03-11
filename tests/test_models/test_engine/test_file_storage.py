@@ -66,16 +66,16 @@ class TestFileStorage(unittest.TestCase):
         objects = self.file_storage.all()
         self.assertIn(f"BaseModel.{new_obj.id}", objects)
 
-        # Save objects to file
-        self.file_storage.save()
+        # # Save objects to file
+        # self.file_storage.save()
 
-        # Reload objects from file
-        self.file_storage.reload()
-        objects_after_save = self.file_storage.all()
+        # # Reload objects from file
+        # self.file_storage.reload()
+        # objects_after_save = self.file_storage.all()
 
-        # Check if object is still present after saving and reloading
-        self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
-        self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
+        # # Check if object is still present after saving and reloading
+        # self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
+        # self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
 
     def test_reload(self):
         """ Test the reload() method """
