@@ -27,10 +27,11 @@ class FileStorage:
         """ Serializes __objects to the JSON file (path: __file_path) """
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(
-            {k: v.to_dict() for k, v in FileStorage.__objects.items()},
-            f,
-            default=lambda x: x.isoformat() if isinstance(x, datetime) else x
-    )
+                {k: v.to_dict() for k, v in FileStorage.__objects.items()},
+                f,
+                default=lambda x: x.isoformat()
+                if isinstance(x, datetime) else x
+                )
 
     def reload(self):
         """ Deserializes the JSON file to __objects """
