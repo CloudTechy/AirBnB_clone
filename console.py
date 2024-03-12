@@ -10,7 +10,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, line):
         """Exit HBNB console """
-        exit()
+        return True
 
     def do_EOF(self, line):
         """Exit HBNB console """
