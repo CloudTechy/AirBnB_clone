@@ -4,7 +4,7 @@
 import unittest
 import os
 import json
-from models.engine.file_storage import FileStorage
+from AirBnB_clone.models.file_storage import FileStorage
 from models.base_model import BaseModel
 
 
@@ -13,16 +13,14 @@ class TestFileStorage(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """ Run once before all tests """
-        cls.file_path = "test_file.json"
+        cls.file_path = "file.json"
         bm1 = BaseModel()
         bm2 = BaseModel()
-        cls.test_objects = {
-                f"BaseModel.{bm1.id}": bm1.to_dict(),
-                f"BaseModel.{bm2.id}": bm2.to_dict()
-                }
-        # Create a temporary test file with some data
-        with open(cls.file_path, 'w') as f:
-            json.dump(cls.test_objects, f)
+        cls.fs = FileStorage()
+        cls.fs.new(bm1)
+        cls.fs.new(bm2)
+        cls.fs.save()
+        cls.test_objects = cls.fs.all()
 
     @classmethod
     def tearDownClass(cls):
@@ -32,31 +30,25 @@ class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         """ Run before each test """
-        self.file_storage = FileStorage()
-        self.file_storage._FileStorage__file_path = self.file_path
-        self.file_storage.reload()
+        self.file_storage = self.fs
+        # self.file_storage.reload()
 
     def tearDown(self):
         """ Run after each test """
         # Reset FileStorage to initial state
-        self.file_storage.__objects = {}
+        # self.file_storage.__objects = {}
 
     def test_all(self):
         """ Test the all() method """
         # Reload should overwrite existing objects with test data
         self.file_storage.reload()
         objects = self.file_storage.all()
-        print(objects, "; len: ",len(objects))
-        print()
-        print("self: ", self.test_objects, "len: ",len(self.test_objects) )
 
         # Check if the number of objects matches the expected test objects
         self.assertEqual(len(objects), len(self.test_objects))
 
         # Check if each key in test_objects is present in objects
         for key in self.test_objects:
-            print()
-            print(key, 'here')
             self.assertIn(key, objects)
 
         # Check if the values of each key match the expected test data

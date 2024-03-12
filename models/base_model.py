@@ -10,8 +10,6 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """ initializes the BaseModel class """
-        print(kwargs)
-        print()
         if kwargs:
             if "id" not in kwargs:
                 kwargs["id"] = str(uuid.uuid4())

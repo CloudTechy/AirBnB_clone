@@ -2,7 +2,7 @@
 """ Defines File storage class """
 
 import json
-from models.base_model import BaseModel
+from base_model import BaseModel
 from datetime import datetime
 
 
@@ -58,19 +58,25 @@ class FileStorage:
             pass
 
 
-# if __name__ == "__main__":
-#     f = FileStorage()
-#     new_obj = {"BaseModel.3": BaseModel().to_dict()}
-#     f.new(new_obj)
+if __name__ == "__main__":
+    f = FileStorage()
+    new_obj = BaseModel()
+    new_obj2 = BaseModel()
+    # print(new_obj)
+    f.new(new_obj)
+    f.new(new_obj2)
 
-#     # # Check if object is added
-#     # objects = f.all()
-#     # print(objects)
+    # # Check if object is added
+    # objects = f.all()
+    print(f.all())
+    f.save()
 
-#     # # Save objects to file
-#     # f.save()
+    # # Save objects to file
+    # f.save()
 
-#     # # Reload objects from file
-#     # f.reload()
-#     objects_after_save = f.all()
-#     print(objects_after_save)
+    # # Reload objects from file
+    f.reload()
+    print("reloading")
+    print(f.all())
+    # objects_after_save = f.all()
+    # print(objects_after_save)
