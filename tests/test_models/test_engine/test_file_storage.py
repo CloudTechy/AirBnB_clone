@@ -54,33 +54,33 @@ class TestFileStorage(unittest.TestCase):
         for key, value in self.test_objects.items():
             self.assertEqual(objects[key], value)
 
-    # def test_new_and_save(self):
-    #     """ Test the new() and save() methods """
-    #     # Create a new object
-    #     new_obj = BaseModel()
-    #     self.file_storage.new(new_obj)
+    def test_new_and_save(self):
+        """ Test the new() and save() methods """
+        # Create a new object
+        new_obj = BaseModel()
+        self.file_storage.new(new_obj)
 
-    #     # Check if object is added
-    #     objects = self.file_storage.all()
-    #     self.assertIn(f"BaseModel.{new_obj.id}", objects)
+        # Check if object is added
+        objects = self.file_storage.all()
+        self.assertIn(f"BaseModel.{new_obj.id}", objects)
 
-    #     # Save objects to file
-    #     self.file_storage.save()
+        # Save objects to file
+        self.file_storage.save()
 
-    #     # Reload objects from file
-    #     self.file_storage.reload()
-    #     objects_after_save = self.file_storage.all()
+        # Reload objects from file
+        self.file_storage.reload()
+        objects_after_save = self.file_storage.all()
 
-    #     # Check if object is still present after saving and reloading
-    #     self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
-    #     self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
+        # Check if object is still present after saving and reloading
+        self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
+        self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
 
-    # def test_reload(self):
-    #     """ Test the reload() method """
-    #     # Reload should overwrite existing objects with test data
-    #     self.file_storage.reload()
-    #     objects = self.file_storage.all()
-    #     self.assertEqual(objects, self.test_objects)
+    def test_reload(self):
+        """ Test the reload() method """
+        # Reload should overwrite existing objects with test data
+        self.file_storage.reload()
+        objects = self.file_storage.all()
+        self.assertEqual(objects, self.test_objects)
 
 
 if __name__ == '__main__':
