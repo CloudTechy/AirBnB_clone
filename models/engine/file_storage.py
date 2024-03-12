@@ -77,6 +77,11 @@ if __name__ == "__main__":
     # # Reload objects from file
     f.reload()
     print("reloading")
-    print(f.all())
-    # objects_after_save = f.all()
+  
+    objects_after_save = f.all()
+    print("old", new_obj)
+    new_obj_reload = objects_after_save[f"BaseModel.{new_obj.id}"]
+    print("reload", new_obj_reload)
+    print(new_obj.to_dict() ==  new_obj_reload.to_dict())
+    
     # print(objects_after_save)

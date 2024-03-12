@@ -3,7 +3,7 @@
 
 import unittest
 import os
-from models.engine.file_storage import FileStorage
+from AirBnB_clone.models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
 
@@ -73,7 +73,7 @@ class TestFileStorage(unittest.TestCase):
 
         # Check if object is still present after saving and reloading
         self.assertIn(f"BaseModel.{new_obj.id}", objects_after_save)
-        self.assertDictEqual(objects_after_save[f"BaseModel.{new_obj.id}"], new_obj)
+        self.assertEqual(objects_after_save[f"BaseModel.{new_obj.id}"].to_dict(), new_obj.to_dict())
         
 
     def test_reload(self):
