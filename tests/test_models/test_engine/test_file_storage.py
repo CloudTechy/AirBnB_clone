@@ -52,7 +52,7 @@ class TestFileStorage(unittest.TestCase):
 
         # Check if the values of each key match the expected test data
         for key, value in self.test_objects.items():
-            self.assertDictEqual(objects[key], value)
+            self.assertEqual(objects[key], value)
 
     # def test_new_and_save(self):
     #     """ Test the new() and save() methods """
