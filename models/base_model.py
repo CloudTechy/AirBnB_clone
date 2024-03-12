@@ -48,19 +48,8 @@ class BaseModel:
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
 
-
-# Test the BaseModel class
-if __name__ == "__main__":
-    # b = BaseModel()
-    # print(b.to_dict())
-    # b_copy = BaseModel(b.to_dict)
-
-    dict = {
-        # 'id': '9626be2c-c964-4453-a1b6-4184f703c298',
-        'created_at': '2024-03-11T10:27:00.941821',
-        'updated_at': '2024-03-11T10:27:00.941821',
-        '__class__': 'BaseModel'
-        }
-    c = BaseModel(**dict)
-    print()
-    print(c)
+    def __eq__(self, other):
+        # Check if two objects are equal based on their IDs
+        if isinstance(other, BaseModel):
+            return self.id == other.id and self.name == other.name
+        return False
