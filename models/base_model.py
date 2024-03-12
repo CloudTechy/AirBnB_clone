@@ -51,5 +51,5 @@ class BaseModel:
     def __eq__(self, other):
         # Check if two objects are equal based on their IDs
         if isinstance(other, BaseModel):
-            return self.id == other.id and self.name == other.name
+            return self.id == other.id
         return False
