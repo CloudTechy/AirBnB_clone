@@ -27,9 +27,9 @@ class FileStorage:
         """ Serializes __objects to the JSON file (path: __file_path) """
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(
-        {k: v.to_dict() for k, v in FileStorage.__objects.items()},
-        f,
-        default=lambda x: x.isoformat() if isinstance(x, datetime) else x
+            {k: v.to_dict() for k, v in FileStorage.__objects.items()},
+            f,
+            default=lambda x: x.isoformat() if isinstance(x, datetime) else x
     )
 
     def reload(self):
@@ -42,7 +42,7 @@ class FileStorage:
                     if cls_name is None:
                         # Handle missing class name
                         continue
-                    
+
                     # Get the class from the class name
                     cls = globals().get(cls_name)
                     # Remove the class name from the object data
@@ -50,38 +50,9 @@ class FileStorage:
 
                     # Create an instance of the class with the object data
                     instance = cls(**obj_data)
-                    
+
                     # Add the instance to the __objects dictionary
                     key = "{}.{}".format(cls.__name__, instance.id)
                     self.__objects[key] = instance
         except FileNotFoundError:
             pass
-
-
-if __name__ == "__main__":
-    f = FileStorage()
-    new_obj = BaseModel()
-    new_obj2 = BaseModel()
-    # print(new_obj)
-    f.new(new_obj)
-    f.new(new_obj2)
-
-    # # Check if object is added
-    # objects = f.all()
-    print(f.all())
-    f.save()
-
-    # # Save objects to file
-    # f.save()
-
-    # # Reload objects from file
-    f.reload()
-    print("reloading")
-  
-    objects_after_save = f.all()
-    print("old", new_obj)
-    new_obj_reload = objects_after_save[f"BaseModel.{new_obj.id}"]
-    print("reload", new_obj_reload)
-    print(new_obj.to_dict() ==  new_obj_reload.to_dict())
-    
-    # print(objects_after_save)
