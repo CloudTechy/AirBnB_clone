@@ -50,7 +50,12 @@ class FileStorage:
                     obj_data.pop("__class__", None)
 
                     # Create an instance of the class with the object data
-                    instance = cls(**obj_data)
+                    #check if the instance already exist
+                    existing_obj = cls.get_by_id(obj_data.get("id"))
+                    if existing_obj:
+                        instance = existing_obj
+                    else:
+                        instance = cls(**obj_data)
 
                     # Add the instance to the __objects dictionary
                     key = "{}.{}".format(cls.__name__, instance.id)
